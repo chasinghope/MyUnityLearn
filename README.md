@@ -23,3 +23,8 @@ Learn  Access
 
 2. https://www.bilibili.com/video/BV1aU4y1x7s1
 
+
+
+# Koch
+
+https://www.youtube.com/watch?v=-9XJi0ry4JE&list=PL3POsQzaCw53vmvWr-Ye-R0d3NPJzp25P&index=3
