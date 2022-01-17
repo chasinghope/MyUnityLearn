@@ -75,7 +75,7 @@ public class KochGenerator : MonoBehaviour
         _position[_initiatorPointAmount] = _position[0];
     }
 
-    protected void KochGeneratorL(Vector3[] positions, bool outwards, float generatorMultiplier)
+    protected void KochGenerate(Vector3[] positions, bool outwards, float generatorMultiplier)
     {
         //creating line segments
         _lineSegment.Clear();
@@ -123,6 +123,13 @@ public class KochGenerator : MonoBehaviour
         }
         newPos.Add(_lineSegment[0].StartPosition);
         targetPos.Add(_lineSegment[0].StartPosition);
+
+        _position = new Vector3[newPos.Count];
+        _targetPosition = new Vector3[targetPos.Count];
+        _position = newPos.ToArray();
+        _targetPosition = targetPos.ToArray();
+
+        _generationCount++;
     }
 
     private void OnDrawGizmos()
