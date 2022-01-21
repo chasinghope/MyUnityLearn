@@ -204,13 +204,22 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.42639542
+        value: 0.3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.3
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -317,6 +326,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _initiatorSize: 10
+  _lerpAmount: 0.126
+  _generateMultiplier: 1
 --- !u!1 &619030763
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,8 +404,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619030763}
-  m_LocalRotation: {x: -0.10530861, y: 0.8916029, z: -0.34819114, w: -0.26966164}
-  m_LocalPosition: {x: 8.150544, y: 13.553836, z: 12.241823}
+  m_LocalRotation: {x: 0.7071068, y: -0.00000010430813, z: 0.000000059604645, w: 0.7071068}
+  m_LocalPosition: {x: 5.121524, y: 26.995575, z: 0.70079863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -6,6 +6,7 @@ using UnityEngine;
 public class KochLine : KochGenerator
 {
     LineRenderer _lineRenderer;
+    [Range(0f, 1f)]
     public float _lerpAmount;
     Vector3[] _lerpPosition;
     public float _generateMultiplier;

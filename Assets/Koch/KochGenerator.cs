@@ -73,7 +73,9 @@ public class KochGenerator : MonoBehaviour
             _rotateVector = Quaternion.AngleAxis(360 / _initiatorPointAmount, _rotateAxis) * _rotateVector;
         }
         _position[_initiatorPointAmount] = _position[0];
+        _targetPosition = _position;
     }
+
 
     protected void KochGenerate(Vector3[] positions, bool outwards, float generatorMultiplier)
     {
@@ -129,6 +131,7 @@ public class KochGenerator : MonoBehaviour
         _position = newPos.ToArray();
         _targetPosition = targetPos.ToArray();
 
+        Debug.Log($"position: {_position.Length}    target position: {_targetPosition.Length}    generationCount: {_generationCount}");
         _generationCount++;
     }
 
