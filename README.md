@@ -28,3 +28,7 @@ Learn  Access
 # Koch
 
 https://www.youtube.com/watch?v=-9XJi0ry4JE&list=PL3POsQzaCw53vmvWr-Ye-R0d3NPJzp25P&index=3
+
+KochLine
+
+KochTrail

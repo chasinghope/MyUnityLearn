@@ -16,6 +16,15 @@ public class KochGenerator : MonoBehaviour
     [SerializeField]
     protected _axis axis = new _axis();
 
+    [System.Serializable]
+    public struct StartGen
+    {
+        public bool outwards;
+        public float scale;
+    }
+
+    public StartGen[] _startGen;
+
     protected enum _initiator
     {
         Triangle,
@@ -42,6 +51,11 @@ public class KochGenerator : MonoBehaviour
     [SerializeField]
     protected AnimationCurve _generator;
     protected Keyframe[] _keys;
+    [SerializeField]
+    protected bool _useBezierCurves;
+    [SerializeField]
+    [Range(8,24)]
+    protected int _beizerVertexCount = 8;
 
     protected int _generationCount;
 
@@ -55,7 +69,11 @@ public class KochGenerator : MonoBehaviour
 
     protected Vector3[] _position;
     protected Vector3[] _targetPosition;
+    protected Vector3[] _bezierPosition;
     private List<LineSegment> _lineSegment;
+
+    [Header("辅助参数")]
+    public float _lengthOfSide;
 
     private void Awake()
     {
@@ -74,6 +92,11 @@ public class KochGenerator : MonoBehaviour
         }
         _position[_initiatorPointAmount] = _position[0];
         _targetPosition = _position;
+
+        for (int i = 0; i < _startGen.Length; i++)
+        {
+            KochGenerate(_targetPosition, _startGen[i].outwards, _startGen[i].scale);
+        }
     }
 
 
@@ -130,9 +153,31 @@ public class KochGenerator : MonoBehaviour
         _targetPosition = new Vector3[targetPos.Count];
         _position = newPos.ToArray();
         _targetPosition = targetPos.ToArray();
+        _bezierPosition = BeizerCurve(_targetPosition, _beizerVertexCount);
 
-        Debug.Log($"position: {_position.Length}    target position: {_targetPosition.Length}    generationCount: {_generationCount}");
+
         _generationCount++;
+        Debug.Log($"position: {_position.Length}    target position: {_targetPosition.Length}    generationCount: {_generationCount}    bezier position: {_bezierPosition.Length}");
+    }
+
+
+    protected Vector3[] BeizerCurve(Vector3[] points, int vertexCount)
+    {
+        var pointList = new List<Vector3>();
+        for (int i = 0; i < points.Length; i += 2)
+        {
+            if (i + 2 <= points.Length - 1)
+            {
+                for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
+                {
+                    var tangentLineVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
+                    var tangentLineVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
+                    var bezierpoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
+                    pointList.Add(bezierpoint);
+                }
+            }
+        }
+        return pointList.ToArray();
     }
 
     private void OnDrawGizmos()
@@ -160,6 +205,7 @@ public class KochGenerator : MonoBehaviour
                 Gizmos.DrawLine(_initiatorPoint[i], _initiatorPoint[0]);
             }
         }
+        _lengthOfSide = Vector3.Distance(_initiatorPoint[0], _initiatorPoint[1]) * 0.5f;
     }
 
     private void GetInitiatorPoints()

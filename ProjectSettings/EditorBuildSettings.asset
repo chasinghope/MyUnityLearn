@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Koch/Trail/KochTrail.unity
+    guid: 99d014acebbbf154881687b168cafb8a
   m_configObjects: {}
