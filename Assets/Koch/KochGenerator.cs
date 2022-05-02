@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class KochGenerator : MonoBehaviour
 {
     protected enum _axis
@@ -42,9 +40,6 @@ public class KochGenerator : MonoBehaviour
         public Vector3 Direction { get; set; }
         public float Length { get; set; }
     }
-
-
-
 
     [SerializeField]
     protected _initiator initiator = new _initiator();
@@ -98,7 +93,6 @@ public class KochGenerator : MonoBehaviour
             KochGenerate(_targetPosition, _startGen[i].outwards, _startGen[i].scale);
         }
     }
-
 
     protected void KochGenerate(Vector3[] positions, bool outwards, float generatorMultiplier)
     {
@@ -159,7 +153,6 @@ public class KochGenerator : MonoBehaviour
         _generationCount++;
         Debug.Log($"position: {_position.Length}    target position: {_targetPosition.Length}    generationCount: {_generationCount}    bezier position: {_bezierPosition.Length}");
     }
-
 
     protected Vector3[] BeizerCurve(Vector3[] points, int vertexCount)
     {
