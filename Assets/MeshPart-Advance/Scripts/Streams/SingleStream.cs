@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -20,10 +21,13 @@ namespace ProcedureMeshes
             public float2 texCoord0;
         }
 
+        [NativeDisableContainerSafetyRestriction]
         private NativeArray<Stream0> stream0;
+
+        [NativeDisableContainerSafetyRestriction]
         private NativeArray<int3> triangles;
 
-        public void Setup(Mesh.MeshData meshData, int vertexCount, int indexCount)
+        public void Setup(Mesh.MeshData meshData, Bounds bounds, int vertexCount, int indexCount)
         {
             NativeArray<VertexAttributeDescriptor> descriptor = new NativeArray<VertexAttributeDescriptor>(4, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
             descriptor[0] = new VertexAttributeDescriptor(VertexAttribute.Position, dimension: 3);
@@ -37,7 +41,17 @@ namespace ProcedureMeshes
             meshData.SetIndexBufferParams(indexCount, IndexFormat.UInt32);
 
             meshData.subMeshCount = 1;
-            meshData.SetSubMesh(0, new SubMeshDescriptor(0, indexCount, MeshTopology.Triangles));
+            //meshData.SetSubMesh(0, new SubMeshDescriptor(0, indexCount, MeshTopology.Triangles));
+            meshData.SetSubMesh(
+                0, 
+                new SubMeshDescriptor(0, indexCount)
+                {
+                    bounds = bounds,
+                    vertexCount = vertexCount
+                },
+                MeshUpdateFlags.DontRecalculateBounds |
+                MeshUpdateFlags.DontValidateIndices
+            );
 
             stream0 = meshData.GetVertexData<Stream0>();
             triangles = meshData.GetIndexData<int>().Reinterpret<int3>(4);
