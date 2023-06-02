@@ -28,5 +28,7 @@ namespace ProcedureMeshes
             return job.ScheduleParallel(job.generator.JobLength, 1, dependency);
         }
     }
+
+    public delegate JobHandle MeshJobScheduleDelegate(Mesh mesh, Mesh.MeshData meshData, int resolution, JobHandle dependency);
 }
 
